@@ -14,3 +14,6 @@ To load the data, you need two files to be placed in the `data` folder:
   You can then install the dependencies and start application and call the endpoint `/load` using a http PUT verb. It delete all the data and load them from the specified files.
 
 You can see the file `env.example` for expected variables.
+
+# Authorizarion
+For avery call to the API, you need to set an HTTP header named `authorization` with an API as value

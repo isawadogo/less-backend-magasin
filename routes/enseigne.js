@@ -175,6 +175,16 @@ Description : This route loads to the DB.
 */
 router.put('/load', async function (req, res, next) {
     if (enableLoad === 'TRUE') {
+      const authorization = req.headers['x-load-key'];
+      if (!authorization) {
+          res.json({result: false, error: 'no load key provided'});
+          return;
+      }
+      if (authorization !== process.env.LOAD_AUTH_KEY) {
+        res.json({result: false, error: 'The load key is incorrect'});
+        return;
+      }
+
       try {
         // Delete the products
         await Produit.deleteMany({});
