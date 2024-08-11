@@ -8,6 +8,7 @@ To load the data, you need two files to be placed in the `data` folder:
 
  Then you need to set the environment variables :
   - `LOAD_PRODUCT` to `TRUE` to enable the load endpoint
+  - `LOAD_AUTH_KEY` to a value to provide in the HTTP header named `x-load-key` to be able to load data
   - `PRODUCTS_FILE_NAME` to the file containing the data for the collection produits. In our example it will be : `produits.json`
   - `ENSEIGNES_FILE_NAME` to the file containing the data for the collection enseignes. In our example it will be : `enseignes.json`
 
