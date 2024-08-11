@@ -1,0 +1,58 @@
+[
+  {
+    "nom": "Naturalia Kremblin Bicetre",
+    "adresse": {
+      "commune": "Le Kremlin-Bicêtre",
+      "nomDeRue": "AVENUE DE FONTAINEBLEAU",
+      "numeroDeRue": "96",
+      "codePostal": "94270"
+    },
+    "apiKey": "a800a7fd-33ef-4eba-9b70-2e846cae67a5",
+    "localisation": {
+      "latitude": 48.8101775,      
+      "longitude": 2.3592131
+    }
+  },
+  {
+    "nom": "Monoprix Poissy NOAILLES",
+    "adresse": {
+      "commune": "Poissy",
+      "nomDeRue": "Boulevard Maximilien Robespierre",
+      "numeroDeRue": "53",
+      "codePostal": "78300"
+    },
+    "apiKey": "07986c00-22d2-4892-88c4-b622f79c7d03",
+    "localisation": {
+      "latitude": 49.0176512,
+      "longitude": 1.9398656
+    }
+  },
+  {
+    "nom": "Leaderprice Rueil Malmaison",
+    "adresse": {
+      "commune": "Rueil Malmaison",
+      "nomDeRue": "Avenue du Président Georges Pompidou",
+      "numeroDeRue": "71",
+      "codePostal": "92500"
+    },
+    "apiKey": "7ff7445f-9f55-4abe-ad34-2b1f140e47cd",
+    "localisation": {
+      "latitude": 48.8713041,
+      "longitude": 2.1923711
+    }
+  },
+  {
+    "nom": "E.Leclerc Yerres",
+    "adresse": {
+      "commune": "Yerres",
+      "nomDeRue": "Rue De Concy",
+      "numeroDeRue": "107",
+      "codePostal": "91330"
+    },
+    "apiKey": "c243dbfa-0c70-4455-8301-700a237d8396",
+    "localisation": {
+      "latitude": 48.7078035,
+      "longitude": 2.4796251
+    }
+  }
+]

@@ -6,14 +6,18 @@ const produitSchema = new mongoose.Schema({
     prix: Number,
     enseigne: { type: mongoose.Schema.Types.ObjectId, ref: 'enseignes' },
     nutriscore: Number,
-    listeIngredients: Array,
-    faibleEmpreinte: Boolean,
+    enpreinteCarbonne: String,
+    listeIngredients: [String],
     tauxDeSucre: Number,
     tauxDeMatiereGrasse: Number,
     //vegan: Boolean,       // from listeIngredients
     //vegetarien: Boolean,  // from listeIngredients
     bio: Boolean,
     codePostal: Number, // For local criteria
+    poids: {
+        quantite: Number,
+        unite: String
+    }
 });
 
 const Produit = mongoose.model('produits', produitSchema);

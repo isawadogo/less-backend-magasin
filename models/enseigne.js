@@ -4,6 +4,7 @@ const enseigneSchema = new mongoose.Schema({
     nom: String,
     adresse: Object,
     localisation: Object,
+    apiKey: String,
 })
 
 const Enseigne = mongoose.model('enseignes', enseigneSchema);
