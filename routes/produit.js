@@ -55,7 +55,7 @@ router.get('/', async function (req, res, next) {
         res.json({result: false, error: `No produuit present in the DB`});
         return;
       }
-      res.json({ result: true, user: productDetails });
+      res.json({ result: true, produit: productDetails });
     } catch(err) {
       console.error(err.stack);
       res.json({result: false, error: "Failed to get user details. Please see logs for more details"});
