@@ -29,7 +29,7 @@ router.get('/:productId', async function (req, res, next) {
         return;
       }
 
-      res.json({ result: true, user: productDetails[0] });
+      res.json({ result: true, produit: productDetails[0] });
 
     } catch(err) {
       console.error(err.stack);
