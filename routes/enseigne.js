@@ -2,9 +2,6 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 
-const uid2 = require("uid2");
-const bcrypt = require("bcrypt");
-
 const { body, validationResult } = require('express-validator');
 const Produit = require('../models/produit');
 const Enseigne = require('../models/enseigne');
@@ -12,6 +9,7 @@ const Enseigne = require('../models/enseigne');
 let enseignesList = {};
 let productsList = {};
 
+// Set data files if data loading is enabled
 const enableLoad = process.env.LOAD_PRODUCT
 if (enableLoad === 'TRUE') {
   const productsFile = path.join(__dirname,`../data/${process.env.PRODUCTS_FILE_NAME}`);

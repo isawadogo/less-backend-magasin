@@ -39,28 +39,34 @@ router.get('/:productId', async function (req, res, next) {
 });
 
 /*
-Route : GET - Get all products with details - /produit
-IN : body = {  }
+Route : GET - Get all products with details - /produit?page=page_number&limit=number_per_page
+IN : body = 
 Returns : 
-    OK = { result: true, produits: [{produit_details}] }
+    OK = { result: true, produits: [{produit_details}], page: page_requested, totalPages: Number_of_pages, totalProduits: total_number_of_produits }
     KO = { result: false, error: error_message }
 
 Description : This route retrieves a product details
 */
 router.get('/', async function (req, res, next) {
-    try {
-      const productDetails = await Produit.find({}).populate('enseigne');
+  const page = parseInt(req.query.page, 10) || 1;
+  const limit = parseInt(req.query.limit, 10) || 10;
+  const offset = (page - 1) * limit;
+  try {
+    const productDetails = await Produit.find({}).limit(limit).skip(offset).populate('enseigne');
       
-      if (productDetails.length === 0){
-        res.json({result: false, error: `No produuit present in the DB`});
-        return;
-      }
-      res.json({ result: true, produit: productDetails });
-    } catch(err) {
-      console.error(err.stack);
-      res.json({result: false, error: "Failed to get user details. Please see logs for more details"});
-      next(err);
+    if (productDetails.length === 0){
+      res.json({result: false, error: `No produuit present in the DB`});
+      return;
     }
+    const totalProduits = await Produit.countDocuments({});
+    const totalPages = Math.ceil(totalProduits / limit);
+
+    res.json({ result: true, produit: productDetails, page, totalPages, totalProduits });
+  } catch(err) {
+    console.error(err.stack);
+    res.json({result: false, error: "Failed to get user details. Please see logs for more details"});
+    next(err);
+  }
 });
 
 module.exports = router;
