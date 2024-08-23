@@ -82,6 +82,55 @@ router.get('/categories/:nom', async function(req, res, next) {
     }
 })
 
+
+/*
+Route : POST - Get product details - /enseigne1/categories/nom?&page=pageNumber&limit=resultsPerPage
+IN : body = {
+              noms: [String],
+              page=Number,
+              limit=Number
+            }
+Returns : 
+    OK = { result: true, produits: [produits_list], page: page_requested, totalPages: Number_of_pages, totalProduits: total_number_of_produits  }
+    KO = { result: false, error: error_message }
+
+Description : This route retrieves all the produits for a categorie
+*/
+router.post('/categories/:nom', async function(req, res, next) {
+  const page = parseInt(req.body.page, 10) || 1;
+  const limit = parseInt(req.body.limit, 10) || 10;
+  const offset = (page - 1) * limit;
+
+    try {
+      // EnseigneID
+      const regex = new RegExp(nomEnseigneAPI, 'i')
+      const enseigneData = await Enseigne.findOne({
+        nom: {$regex: regex}
+      })
+      console.log('enseigne data : ', enseigneData);
+      if (enseigneData === null) {
+        res.json({result: false, error: `the enseigne ${nomEnseigneAPI} has been found in the DB`})
+        return
+      }
+      const produits = await Produit.find({
+        enseigne: enseigneData._id,
+        categorieDeProduit: req.params.nom
+      }).limit(limit).skip(offset).populate('enseigne');
+      //console.log('produits for categorie : ', produits);  
+      const totalProduits = await Produit.countDocuments({
+        enseigne: enseigneData._id,
+        categorieDeProduit: req.params.nom
+      });
+      const totalPages = Math.ceil(totalProduits / limit);
+      res.json({ result: true, produits: produits, page, totalPages, totalProduits });
+    } catch(err) {
+      console.error(err.stack);
+      res.json({result: false, error: "Failed to get user details. Please see logs for more details"});
+      next(err);
+    }
+
+})
+
 /*
 Route : GET - Get product details - /enseigne1/produit/:id
 IN : body = {  }
