@@ -38,7 +38,7 @@ router.get('/categories/:nom', async function(req, res, next) {
     }
     const produits = await Produit.find({
       ...reqParams
-    }, excludedFields).limit(limit).skip(offset).populate('enseigne');
+    }, excludedFields).limit(limit).skip(offset).populate('enseigne').sort({ prix: 1 });
     //console.log('produits for categorie : ', produits);  
     const totalProduits = await Produit.countDocuments({
       categorieDeProduit: req.params.nom
@@ -126,7 +126,7 @@ router.get('/', async function (req, res, next) {
   const limit = parseInt(req.query.limit, 10) || 10;
   const offset = (page - 1) * limit;
   try {
-    const productDetails = await Produit.find({}).limit(limit).skip(offset).populate('enseigne');
+    const productDetails = await Produit.find({}).limit(limit).skip(offset).populate('enseigne').sort({ prix: 1 });
       
     if (productDetails.length === 0){
       res.json({result: false, error: `No produuit present in the DB`});
