@@ -58,7 +58,7 @@ Returns :
 
 Description : This route retrieves an enseigne by its name
 */
-router.get('/:nom', async function (req, res, next) {
+router.get('/enseigneDetails/:nom', async function (req, res, next) {
     const nomEnseigne = req.params.nom;
     let reqParams = {}
     if (nomEnseigne) {
@@ -249,10 +249,10 @@ Returns :
 
 Description : This route retrieves all categories it provides
 */
-router.get('/categories', async function(req, res, next) {
+router.get('/getCategories', async function(req, res, next) {
     try {
       // EnseigneID
-      const categories = await Produit.distinct('', {categorieDeProduit: req.params.id});
+      const categories = await Produit.distinct("categorieDeProduit");
       console.log('categories : ', categories);  
       res.json({ result: true, categories: categories });
     } catch(err) {

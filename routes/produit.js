@@ -4,7 +4,6 @@ var router = express.Router();
 require("../models/connection");
 const Produit = require('../models/produit');
 const Enseigne = require('../models/enseigne');
-//const Enseigne = require('../models/enseigne');
 
 /*
 Route : GET - Get produit for a categorie - /produit/categories/nom?&nomProduit=nomProduit&page=pageNumber&limit=resultsPerPage
@@ -64,21 +63,22 @@ Description : This route retrieves a product details
 router.get('/nomsProduit/:category', async function (req, res, next) {
   try {
     const productDetails = await Produit.distinct('nom', {categorieDeProduit: req.params.category})
-      
+    const produitsUniques = await Produit.aggregate([
+      { $match: { categorieDeProduit: req.params.category } },
+      {"$group": {"_id": { "nom": "$nom", "url": "$url"}}}
+    ]) 
+    //console.log('PROD UNIQUE : ', produitsUniques);
     if (productDetails.length === 0){
       res.json({result: false, error: `No produuit present in the DB for categorie ${req.params.category}`});
       return;
     }
-
-    res.json({ result: true, produits: productDetails.map((p) => { return {nom: p, url: '', categorie: req.params.category}}) });
+    res.json({ result: true, produits: produitsUniques.map((p) => { return {nom: p._id.nom, url: p._id.url, categorie: req.params.category}}) });
   } catch(err) {
     console.error(err.stack);
     res.json({result: false, error: "Failed to get user details. Please see logs for more details"});
     next(err);
   }
 });
-
-
 
 /*
 Route : GET - Get product details - /produit/:id

@@ -18,7 +18,8 @@ const produitSchema = new mongoose.Schema({
     poids: {
         quantite: Number,
         unite: String
-    }
+    },
+    url: {type: String, default: ''},
 });
 
 const Produit = mongoose.model('produits', produitSchema);
